@@ -7,10 +7,12 @@ const postsListElement = document.getElementsByClassName("posts-list")[0];
 const templateElement = document.getElementById("temp-post");
 
 // Build postsList (from data array)
-postsList.forEach((post) => {
+postsList.forEach((post, index) => {
 
     // create postElement
     const postElement = templateElement.content.cloneNode(true);
+    const likeButtonElement = postElement.querySelector(".like-button");
+    const likeCounterElement = postElement.querySelector(".js-likes-counter");
 
     // utility function for postElement build
     function setValue(selector, property, value) {
@@ -29,9 +31,18 @@ postsList.forEach((post) => {
     setValue(".post-meta__time", "innerHTML", post.created);
     setValue(".post__text", "innerHTML", post.content);
     setValue(".post__image img", "src", post.media);
-    postElement.querySelector(".like-button").setAttribute("data-postid", post.id);
+    likeButtonElement.setAttribute("data-postid", post.id);
     setValue(".js-likes-counter", "id", `like-counter-${post.id}`)
     setValue(".js-likes-counter", "innerHTML", post.likes);
+
+    // like button interaction
+    likeButtonElement.addEventListener("click", () => {
+        if(!likesList.includes(post.id)){
+            likeButtonElement.classList.add("like-button--liked");
+            likeCounterElement.innerHTML = post.likes + 1;
+            likesList.push(post.id);
+        }
+    }); 
 
     // add postElement to DOM
     postsListElement.append(postElement);
