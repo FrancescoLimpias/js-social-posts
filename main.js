@@ -1,6 +1,6 @@
 // Data
 const postsList = posts;    // I know, it's redundant code, but I need it for my own peace of mind XD
-const likesList = [];
+let likesList = [];
 
 // References
 const postsListElement = document.getElementsByClassName("posts-list")[0];
@@ -51,6 +51,10 @@ postsList.forEach((post, index) => {
             likeButtonElement.classList.add("like-button--liked");
             likeCounterElement.innerHTML = post.likes + 1;
             likesList.push(post.id);
+        } else {
+            likeButtonElement.classList.remove("like-button--liked");
+            likeCounterElement.innerHTML = post.likes;
+            likesList = likesList.filter((listId) => listId != post.id);
         }
     });
 
