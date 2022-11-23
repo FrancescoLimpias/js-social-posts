@@ -28,7 +28,8 @@ postsList.forEach((post, index) => {
         /* const fullName = 
         setValue(".post-meta__icon", "innerHTML", `${post.author.name.split("")}`); */
     }
-    setValue(".post-meta__time", "innerHTML", post.created);
+    const dSplit = post.created.split("-"); // just a lazy js Date format
+    setValue(".post-meta__time", "innerHTML", `${dSplit[2]}-${dSplit[1]}-${dSplit[0]}`);
     setValue(".post__text", "innerHTML", post.content);
     setValue(".post__image img", "src", post.media);
     likeButtonElement.setAttribute("data-postid", post.id);
